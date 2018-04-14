@@ -45,7 +45,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="5"><p class="text-center">No body has made a Request</p></td>
+                                    <td colspan="6"><p class="text-center">Nobody has made a Request</p></td>
                                 </tr>
                             @endif
                         </tbody>
