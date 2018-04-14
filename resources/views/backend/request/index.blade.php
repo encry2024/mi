@@ -28,6 +28,7 @@
                             <th>Item Size</th>
                             <th>Requested Quantity</th>
                             <th>Requested By</th>
+                            <th>Date Requested</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -39,6 +40,7 @@
                                         <td>{{ ucfirst($request->inventory->size_quantity) }} {{ ucfirst($request->inventory->size->type) }}</td>
                                         <td>{{ $request->quantity }}</td>
                                         <td>{{ ucfirst($request->requested_by) }}</td>
+                                        <td>{{ date('F d, Y', strtotime($request->date_requested)) }}</td>
                                     </tr>
                                 @endforeach
                             @else
