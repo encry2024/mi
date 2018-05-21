@@ -15,7 +15,7 @@ trait InventoryRelationship
      */
     public function size()
     {
-        return $this->belongsTo(Size::class);
+        return $this->belongsTo(Size::class)->withTrashed();
     }
 
     /**

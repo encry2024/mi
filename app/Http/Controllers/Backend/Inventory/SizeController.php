@@ -9,6 +9,8 @@ use App\Repositories\Backend\Inventory\InventoryRepository;
 use App\Http\Requests\Backend\Size\UpdateSizeRequest;
 use App\Http\Requests\Backend\Size\StoreSizeRequest;
 use App\Http\Requests\Backend\Size\ViewSizeRequest;
+use App\Events\Backend\Size\SizeDeleted;
+use Auth;
 
 class SizeController extends Controller
 {
@@ -66,8 +68,17 @@ class SizeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Size $size)
     {
-        //
+        $size_name = $size->name;
+
+        $auth_link = "<a href='".route('admin.auth.user.show', auth()->id())."'>".Auth::user()->full_name.'</a>';
+        $asset_link = "<a href='".route('admin.inventory.item.size.show', $size->id)."'>".$size->name.'</a>';
+
+        $size = $size->delete();
+
+        event(new SizeDeleted($auth_link, $asset_link));
+
+        return redirect()->back()->withFlashSuccess(__('alerts.backend.inventories.sizes.deleted', ['size' => $size_name]));
     }
 }

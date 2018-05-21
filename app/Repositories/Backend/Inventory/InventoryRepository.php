@@ -113,7 +113,7 @@ class InventoryRepository extends BaseRepository
                 'size_quantity' => $data['size_quantity'],
                 'quantity'      => $data['quantity'] ? $data['quantity'] : '0',
                 'price'         => $data['price'] ? $data['price'] : '0.00'
-            ])) 
+            ]))
 
             {
                 $auth_link  = "<a href='".route('admin.auth.user.show', auth()->id())."'>".Auth::user()->full_name.'</a>';
@@ -210,12 +210,33 @@ class InventoryRepository extends BaseRepository
             if ($size->update([
                 'type'   => $data['type'],
                 'name'   => $data['name'],
-            ])) 
+            ]))
 
             {
                 $auth_link  = '<a href="'.route('admin.auth.user.show', auth()->id()).'">'.Auth::user()->full_name.'</a>';
                 $asset_link = $size->name;
-                
+
+                event(new SizeUpdated($auth_link, $asset_link));
+
+                return $size;
+            }
+
+            throw new GeneralException(__('exceptions.backend.inventories.sizes.update_error'));
+        });
+    }
+
+    public function deleteSize(Size $size, $data) : Size
+    {
+       return DB::transaction(function () use ($size, $data) {
+            if ($size->update([
+                'type'   => $data['type'],
+                'name'   => $data['name'],
+            ]))
+
+            {
+                $auth_link  = '<a href="'.route('admin.auth.user.show', auth()->id()).'">'.Auth::user()->full_name.'</a>';
+                $asset_link = $size->name;
+
                 event(new SizeUpdated($auth_link, $asset_link));
 
                 return $size;
@@ -230,7 +251,7 @@ class InventoryRepository extends BaseRepository
         return DB::transaction(function () use ($item, $data) {
             if ($item->update([
                 'quantity'  => $item->quantity - $data['request_stock']
-            ])) 
+            ]))
 
             {
                 $request_item                   = new Request();

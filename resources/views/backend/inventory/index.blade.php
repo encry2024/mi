@@ -38,9 +38,17 @@
                             @if(count($inventories))
                                 @foreach ($inventories as $item)
                                     <tr>
+                                        @if ($item->trashed())
+                                        <td>{{ ucfirst($item->name) }} (DELETED)</td>
+                                        @else
                                         <td>{{ ucfirst($item->name) }}</td>
+                                        @endif
                                         <td>{{ ucfirst($item->description) }}</td>
-                                        <td>{{ $item->size_quantity }} {{ $item->size->type }}</td>
+                                        @if ($item->size->trashed())
+                                        <td>{{ $item->size_quantity }} N/A</td>
+                                        @else
+                                        <td>{{ $item->size_quantity }} {{ $item->size->name }}</td>
+                                        @endif
                                         <td>{{ ucfirst($item->quantity) }}</td>
                                         <td>{!! $item->action_buttons !!}</td>
                                     </tr>

@@ -21,6 +21,12 @@
     {{ style(mix('css/backend.css')) }}
 
     @stack('after-styles')
+
+    <script>
+            window.Laravel = <?php echo json_encode([
+                'csrfToken' => csrf_token(),
+            ]); ?>
+        </script>
 </head>
 
 <body class="{{ config('backend.body_classes') }}">
@@ -40,7 +46,7 @@
                     </div><!--content-header-->
                     @include('includes.partials.messages')
                     @yield('content')
-                    
+
                 </div><!--animated-->
             </div><!--container-fluid-->
         </main><!--main-->
