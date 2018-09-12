@@ -108,7 +108,6 @@ class InventoryRepository extends BaseRepository
             if ($item->update([
                 'name'          => $data['name'],
                 'description'   => $data['description'],
-                'size_quantity' => $data['size_quantity'],
                 'quantity'      => $data['quantity'] ? $data['quantity'] : '0',
                 'price'         => $data['price'] ? $data['price'] : '0.00'
             ]))

@@ -106,7 +106,6 @@ class InventoryController extends Controller
         $item = $this->inventoryRepository->update($item, $request->only(
             'name',
             'description',
-            'size_quantity',
             'quantity',
             'price'
         ));
