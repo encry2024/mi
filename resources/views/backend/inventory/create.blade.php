@@ -64,28 +64,6 @@
                     </div><!--form-group-->
 
                     <div class="form-group row">
-                        {{ html()->label(__('validation.attributes.backend.inventories.size'))
-                        ->class('col-md-2 form-control-label')
-                        ->for('size') }}
-
-                        <div class="input-group col-md-10">
-                            {{
-                                html()->text('size_quantity')
-                                ->class('form-control')
-                                ->placeholder(__('validation.attributes.backend.inventories.size_quantity'))
-                                ->attribute('maxlength', 191)
-                            }}
-                            <div class="input-group-prepend">
-                                <select name="size_id" id="size-dropdown" class="form-control custom-select">
-                                    @foreach($sizes as $size)
-                                    <option value="{{ $size->id }}">{{ $size->type }} - {{ $size->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div><!--col-->
-                    </div><!--form-group-->
-
-                    <div class="form-group row">
                         {{ html()->label(__('validation.attributes.backend.inventories.price'))->class('col-md-2 form-control-label')->for('inventory') }}
 
                         <div class="input-group col-md-10">

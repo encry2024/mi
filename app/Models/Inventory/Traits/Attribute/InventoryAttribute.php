@@ -12,9 +12,9 @@ trait InventoryAttribute
      */
     public function getRequestButtonAttribute()
     {
-        return 
+        return
         '<a class="btn btn-dark text-white"
-            onclick="requestItem('.$this->id.',\''.$this->size_quantity . ' ' . $this->size->type.'\', '.'\''.$this->name.'\')" data-toggle="modal" data-target="#request-item-modal">
+            onclick="requestItem('.$this->id.', '.$this->size_quantity.', \''.$this->name.'\')" data-toggle="modal" data-target="#request-item-modal">
             <i class="fa fa-refresh" data-toggle="tooltip" data-placement="top" title="Pull-Out"></i>
         </a>';
     }
@@ -60,7 +60,7 @@ trait InventoryAttribute
     public function getDeletePermanentlyButtonAttribute()
     {
         if (auth()->user()->can('delete item')) {
-            return '<a href="' . route('admin.inventory.item.delete-permanently', $this) . '" 
+            return '<a href="' . route('admin.inventory.item.delete-permanently', $this) . '"
             data-trans-button-cancel="Cancel"
             data-trans-button-confirm="Yes, Delete Permanently"
             data-trans-title="Are you sure you want to delete this item permanently?"
@@ -76,7 +76,7 @@ trait InventoryAttribute
     public function getRestoreButtonAttribute()
     {
         if (auth()->user()->can('restore item'))
-            return '<a href="'.route('admin.inventory.item.restore', $this).'" 
+            return '<a href="'.route('admin.inventory.item.restore', $this).'"
             data-trans-button-cancel="Cancel"
             data-trans-button-confirm="Yes, Restore"
             data-trans-title="Are you sure you want to restore this item?"

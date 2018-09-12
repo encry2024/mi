@@ -73,11 +73,10 @@ class InventoryRepository extends BaseRepository
     {
         return DB::transaction(function () use ($data) {
             $item = parent::create([
-                'size_id'       => $data['size_id'],
                 'name'          => $data['name'],
                 'description'   => $data['description'],
                 'quantity'      => $data['quantity'] ? $data['quantity'] : '0',
-                'size_quantity' => $data['size_quantity'],
+                'size_quantity' => $data['quantity'] ? $data['quantity'] : '0',
                 'price'         => $data['price'] ? $data['price'] : '0.00'
             ]);
 
@@ -107,7 +106,6 @@ class InventoryRepository extends BaseRepository
     {
         return DB::transaction(function () use ($item, $data) {
             if ($item->update([
-                'size_id'       => $data['size_id'],
                 'name'          => $data['name'],
                 'description'   => $data['description'],
                 'size_quantity' => $data['size_quantity'],
@@ -183,74 +181,55 @@ class InventoryRepository extends BaseRepository
         throw new GeneralException(__('exceptions.backend.inventories.restore_error'));
     }
 
-    public function createSize($data) : Size
-    {
-       return DB::transaction(function () use ($data) {
-            $size = Size::create([
-                'type'   =>  $data['type'],
-                'name'   => $data['name'],
-            ]);
+    // public function updateSize(Size $size, $data) : Size
+    // {
+    //    return DB::transaction(function () use ($size, $data) {
+    //         if ($size->update([
+    //             'type'   => $data['type'],
+    //             'name'   => $data['name'],
+    //         ]))
 
-            if ($size) {
-                $auth_link  = "<a href='".route('admin.auth.user.show', auth()->id())."'>".Auth::user()->full_name.'</a>';
-                $asset_link = $size->name;
+    //         {
+    //             $auth_link  = '<a href="'.route('admin.auth.user.show', auth()->id()).'">'.Auth::user()->full_name.'</a>';
+    //             $asset_link = $size->name;
 
-                event(new SizeCreated($auth_link, $asset_link));
+    //             event(new SizeUpdated($auth_link, $asset_link));
 
-                return $size;
-            }
+    //             return $size;
+    //         }
 
-            throw new GeneralException(__('exceptions.backend.inventories.sizes.create_error'));
-        });
-    }
+    //         throw new GeneralException(__('exceptions.backend.inventories.sizes.update_error'));
+    //     });
+    // }
 
-    public function updateSize(Size $size, $data) : Size
-    {
-       return DB::transaction(function () use ($size, $data) {
-            if ($size->update([
-                'type'   => $data['type'],
-                'name'   => $data['name'],
-            ]))
+    // public function deleteSize(Size $size, $data) : Size
+    // {
+    //    return DB::transaction(function () use ($size, $data) {
+    //         if ($size->update([
+    //             'type'   => $data['type'],
+    //             'name'   => $data['name'],
+    //         ]))
 
-            {
-                $auth_link  = '<a href="'.route('admin.auth.user.show', auth()->id()).'">'.Auth::user()->full_name.'</a>';
-                $asset_link = $size->name;
+    //         {
+    //             $auth_link  = '<a href="'.route('admin.auth.user.show', auth()->id()).'">'.Auth::user()->full_name.'</a>';
+    //             $asset_link = $size->name;
 
-                event(new SizeUpdated($auth_link, $asset_link));
+    //             event(new SizeUpdated($auth_link, $asset_link));
 
-                return $size;
-            }
+    //             return $size;
+    //         }
 
-            throw new GeneralException(__('exceptions.backend.inventories.sizes.update_error'));
-        });
-    }
-
-    public function deleteSize(Size $size, $data) : Size
-    {
-       return DB::transaction(function () use ($size, $data) {
-            if ($size->update([
-                'type'   => $data['type'],
-                'name'   => $data['name'],
-            ]))
-
-            {
-                $auth_link  = '<a href="'.route('admin.auth.user.show', auth()->id()).'">'.Auth::user()->full_name.'</a>';
-                $asset_link = $size->name;
-
-                event(new SizeUpdated($auth_link, $asset_link));
-
-                return $size;
-            }
-
-            throw new GeneralException(__('exceptions.backend.inventories.sizes.update_error'));
-        });
-    }
+    //         throw new GeneralException(__('exceptions.backend.inventories.sizes.update_error'));
+    //     });
+    // }
 
     public function requestItem(Inventory $item, $data) : Request
     {
         return DB::transaction(function () use ($item, $data) {
+            $remaining_quantity = $item->quantity - $data['request_stock'];
+
             if ($item->update([
-                'quantity'  => $item->quantity - $data['request_stock']
+                'quantity'  => $remaining_quantity
             ]))
 
             {

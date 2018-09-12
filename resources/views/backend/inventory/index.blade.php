@@ -29,7 +29,6 @@
                         <tr>
                             <th>{{ __('labels.backend.inventories.table.name') }}</th>
                             <th>{{ __('labels.backend.inventories.table.description') }}</th>
-                            <th>{{ __('labels.backend.inventories.table.size') }}</th>
                             <th>{{ __('labels.backend.inventories.table.quantity') }}</th>
                             <th>{{ __('labels.general.actions') }}</th>
                         </tr>
@@ -44,12 +43,7 @@
                                         <td>{{ ucfirst($item->name) }}</td>
                                         @endif
                                         <td>{{ ucfirst($item->description) }}</td>
-                                        @if ($item->size->trashed())
-                                        <td>{{ $item->size_quantity }} N/A</td>
-                                        @else
-                                        <td>{{ $item->size_quantity }} {{ $item->size->name }}</td>
-                                        @endif
-                                        <td>{{ ucfirst($item->quantity) }}</td>
+                                        <td>{{ $item->quantity }} pc(s)</td>
                                         <td>{!! $item->action_buttons !!}</td>
                                     </tr>
                                 @endforeach
@@ -103,7 +97,7 @@
                         </div><!--form-group-->
 
                         <div class="form-group row">
-                            <label for="size" class="col-md-4 form-control-label">Item Size</label>
+                            <label for="size" class="col-md-4 form-control-label">Remaining Qty.</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="size" name="size" required disabled>

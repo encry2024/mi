@@ -48,13 +48,7 @@ class InventoryController extends Controller
      */
     public function create(CreateInventoryRequest $request)
     {
-        $sizes = Size::all();
-
-        if (count($sizes)) {
-            return view('backend.inventory.create')->withSizes($sizes);
-        } else {
-            return redirect()->back()->withFlashDanger('Error: Cannot create Item. You have "'. count($sizes) .'" stored Inventory Size on the database. Add sizes first <a href="'. route('admin.inventory.item.size.index') .'" style="text-decoration: underline;">Click here to create sizes for items.</a>');
-        }
+        return view('backend.inventory.create');
     }
 
     /**
@@ -67,7 +61,6 @@ class InventoryController extends Controller
     {
         $item = $this->inventoryRepository->create($request->only(
             'name',
-            'size_id',
             'description',
             'quantity',
             'size_quantity',
@@ -113,7 +106,6 @@ class InventoryController extends Controller
         $item = $this->inventoryRepository->update($item, $request->only(
             'name',
             'description',
-            'size_id',
             'size_quantity',
             'quantity',
             'price'
@@ -147,6 +139,6 @@ class InventoryController extends Controller
             'requested_by'
         ));
 
-        return redirect()->back()->withFlashSuccess('You have pulled out "'.$request_item->quantity . '" quantity of Item "'.$item->name.' - '.$item->size_quantity.' '.$item->size->type.'" for "'.$request_item->requested_by.'"');
+        return redirect()->back()->withFlashSuccess('You have pulled out "'.$request_item->quantity . '" quantity of Item "'.$item->name.' - '.$item->size_quantity.' pc(s)" for "'.$request_item->requested_by.'"');
     }
 }

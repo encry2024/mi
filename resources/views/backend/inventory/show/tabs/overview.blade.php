@@ -8,12 +8,12 @@
 
             <tr>
                 <th>{{ __('labels.backend.inventories.tabs.content.overview.size') }}</th>
-                <td>{{ $model->size_quantity }} {{ $model->size->type }}</td>
+                <td>{{ $model->size_quantity }} pc(s)</td>
             </tr>
 
             <tr>
                 <th>{{ __('labels.backend.inventories.tabs.content.overview.quantity') }}</th>
-                <td>{{ $model->quantity }}</td>
+                <td>{{ $model->quantity }} pc(s)</td>
             </tr>
 
             <tr>

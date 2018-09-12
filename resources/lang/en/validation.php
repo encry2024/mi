@@ -123,7 +123,6 @@ return [
             'inventories' => [
                 'name'          => 'Item Name',
                 'description'   => 'Description (Optional)',
-                'size'          => 'Size',
                 'quantity'      => 'Quantity (Optional)',
                 'size_quantity' => 'Size Quantity',
                 'price'         => 'Price (Optional)'

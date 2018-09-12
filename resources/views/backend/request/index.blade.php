@@ -25,7 +25,6 @@
                         <tr>
                             <th>Pulled Out By</th>
                             <th>Item Name</th>
-                            <th>Item Size</th>
                             <th>Requested Quantity</th>
                             <th>Requested By</th>
                             <th>Date Requested</th>
@@ -37,8 +36,7 @@
                                     <tr>
                                         <td>{{ $request->user->full_name }}</td>
                                         <td>{{ ucfirst($request->inventory->name) }}</td>
-                                        <td>{{ ucfirst($request->inventory->size_quantity) }} {{ ucfirst($request->inventory->size->type) }}</td>
-                                        <td>{{ $request->quantity }}</td>
+                                        <td>{{ ucfirst($request->inventory->size_quantity) }} pc(s)</td>
                                         <td>{{ ucfirst($request->requested_by) }}</td>
                                         <td>{{ date('F d, Y', strtotime($request->date_requested)) }}</td>
                                     </tr>
