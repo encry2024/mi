@@ -48,24 +48,6 @@
                     </div><!--form-group-->
 
                     <div class="form-group row">
-                        {{ html()->label(__('validation.attributes.backend.inventories.size'))
-                        ->class('col-md-2 form-control-label')
-                        ->for('size') }}
-
-                        <div class="input-group col-md-10">
-                            <input type="text" id="size_quantity" name="size_quantity" placeholder="{{ __('validation.attributes.backend.inventories.size_quantity') }}" class="form-control" value="{{ $item->size_quantity }}">
-                            
-                            <div class="input-group-prepend">
-                                <select name="size_id" id="size-dropdown" class="form-control custom-select">
-                                    @foreach($sizes as $size)
-                                    <option value="{{ $size->id }}" {{ $item->size_id == $size->id ? 'selected' : '' }}>{{ $size->type }} - {{ $size->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div><!--col-->
-                    </div><!--form-group-->
-
-                    <div class="form-group row">
                         {{ html()->label(__('validation.attributes.backend.inventories.price'))->class('col-md-2 form-control-label')->for('inventory') }}
 
                         <div class="input-group col-md-10">
