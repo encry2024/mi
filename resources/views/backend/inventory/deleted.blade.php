@@ -37,12 +37,8 @@
                                     <tr>
                                         <td>{{ ucfirst($item->name) }}</td>
                                         <td>{{ ucfirst($item->description) }}</td>
-                                        @if ($item->size->trashed())
-                                        <td>{{ $item->size_quantity }} N/A</td>
-                                        @else
-                                        <td>{{ $item->size_quantity }} {{ $item->size->name }}</td>
-                                        @endif
-                                        <td>{{ ucfirst($item->quantity) }}</td>
+                                        <td>{{ $item->size_quantity }} pc(s)</td>
+                                        <td>{{ $item->quantity }}</td>
                                         <td>{!! $item->action_buttons !!}</td>
                                     </tr>
                                 @endforeach
